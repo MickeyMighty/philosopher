@@ -6,11 +6,13 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:26:26 by loamar            #+#    #+#             */
-/*   Updated: 2021/08/21 14:35:17 by loamar           ###   ########.fr       */
+/*   Updated: 2021/08/21 17:03:59 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 static int  check_arg(char **argv)
 {
