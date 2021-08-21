@@ -5,53 +5,95 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/18 16:27:46 by loamar            #+#    #+#             */
-/*   Updated: 2021/08/18 17:14:22 by loamar           ###   ########.fr       */
+/*   Created: 2021/08/21 12:26:26 by loamar            #+#    #+#             */
+/*   Updated: 2021/08/21 14:35:17 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void    *func1(void *arg)
+static int  check_arg(char **argv)
 {
-    int     i;
+    int     letter;
+    int     word;
 
-    i = 0;
-    while (i++ < 10)
+    letter = 0;
+    word = 1;
+    while (word < 5)
     {
-        // usleep(10000);
-        printf("\033[91mthread 1: %s\033[0m\n", (char*)arg);
+        while (argv[word][letter] != 0)
+        {
+            if (ft_isdigit(argv[word][letter]) == 0)
+                return (1);
+            letter++;
+        }
+        word++;
     }
-    pthread_exit(arg);
+    return (0);
 }
 
-void    *func2(void *arg)
-{
-    int     i;
+// static int  **malloc_each_philo(t_data data)
+// {
+//     int     philo[data.nbr_philo][3];
+//     // int     pos;
+//     // pos = 0;
+//     // if (!(philo = (int**)malloc(sizeof(int*) * data.nbr_philo)))
+//     //     return (0);
+//     // while (pos < 3)
+//     // {
+//     //     if (!(philo[pos] = (int*)malloc(sizeof(int) * 3)))
+//     //         return (0);
+//     //     // memset(philo[pos], '0', 4*sizeof(int));
+//     //     pos++;
+//     // }
+//     return (philo);
+// }
+// static int  **init_philo(t_data data)
+// {
+//     int     philo[data.nbr_philo][3];
+//     int     pos;
+//
+//     pos = 0;
+//     while (pos < data.nbr_philo)
+//     {
+//         philo[pos][0] = 0;
+//         philo[pos][1] = 0;
+//         philo[pos][2] = 0;
+//         pos++;
+//     }
+//     return (philo);
+// }
 
-    i = 0;
-    while (i++ < 10)
+static void  start_philo(t_data data)
+{
+    int     philo[data.nbr_philo][3];
+    int     pos;
+
+    pos = 0;
+    while (pos < data.nbr_philo)
     {
-        // usleep(10000);
-        printf("\033[95mthread 2: %s\033[0m\n", (char*)arg);
+        philo[pos][0] = 0;
+        philo[pos][1] = 0;
+        philo[pos][2] = 0;
+        pos++;
     }
-    pthread_exit(arg);
+
+    // philo = init_philo(data, philo);
 }
 
-int     main()
+int         main(int argc, char **argv)
 {
-    int     i;
+    t_data  data;
 
-    i = 0;
-    pthread_t t1;
-    pthread_t t2;
-
-    pthread_create(&t1, NULL, func1, "hello 1");
-    pthread_create(&t1, NULL, func2, "hello 2");\
-
-    char s1;
-    char s2;
-    pthread_join(t1, (void**)&s1);
-    pthread_join(t2, (void**)&s2);
+    if (argc != 5)
+        return (0);
+    if (check_arg(argv) == 1)
+        return (0);
+    data.nbr_philo = ft_atoi(argv[1]);
+    data.time_to_die = ft_atoi(argv[2]);
+    data.time_to_eat = ft_atoi(argv[3]);
+    data.time_to_sleep = ft_atoi(argv[4]);
+    // philo = malloc_each_philo(philo);
+    start_philo(data);
     return (0);
 }
