@@ -6,7 +6,7 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:26:26 by loamar            #+#    #+#             */
-/*   Updated: 2021/08/21 17:03:59 by loamar           ###   ########.fr       */
+/*   Updated: 2021/08/23 14:37:33 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-static int  check_arg(char **argv)
+static int  check_arg(int argc, char **argv)
 {
     int     letter;
     int     word;
+    int     limit;
 
+    limit = argc;
     letter = 0;
     word = 1;
-    while (word < 5)
+    while (word < limit)
     {
         while (argv[word][letter] != 0)
         {
@@ -87,14 +89,16 @@ int         main(int argc, char **argv)
 {
     t_data  data;
 
-    if (argc != 5)
+    if (argc != 5 || argc != 6)
         return (0);
-    if (check_arg(argv) == 1)
+    if (check_arg(argc, argv) == 1)
         return (0);
     data.nbr_philo = ft_atoi(argv[1]);
     data.time_to_die = ft_atoi(argv[2]);
     data.time_to_eat = ft_atoi(argv[3]);
     data.time_to_sleep = ft_atoi(argv[4]);
+    if (argc == 6)
+        data.eat_max = ft_atoi(argv[5il]);
     // philo = malloc_each_philo(philo);
     start_philo(data);
     return (0);

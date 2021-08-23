@@ -6,7 +6,7 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:42:24 by loamar            #+#    #+#             */
-/*   Updated: 2021/08/21 17:03:58 by loamar           ###   ########.fr       */
+/*   Updated: 2021/08/23 14:37:23 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct				s_data
     int     time_to_die;
     int     time_to_eat;
     int     time_to_sleep;
+    int     eat_max;
 }							t_data;
 
 int     ft_isdigit(int c);
