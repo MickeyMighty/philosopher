@@ -6,7 +6,7 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:26:26 by loamar            #+#    #+#             */
-/*   Updated: 2021/08/23 14:37:33 by loamar           ###   ########.fr       */
+/*   Updated: 2021/08/25 19:42:02 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ static void  start_philo(t_data data)
         philo[pos][2] = 0;
         pos++;
     }
-
     // philo = init_philo(data, philo);
 }
 
-int         main(int argc, char **argv)
+int            main(int argc, char **argv)
 {
     t_data  data;
 
+    data.eat_max = 0;
     if (argc != 5 || argc != 6)
         return (0);
     if (check_arg(argc, argv) == 1)
@@ -98,7 +98,10 @@ int         main(int argc, char **argv)
     data.time_to_eat = ft_atoi(argv[3]);
     data.time_to_sleep = ft_atoi(argv[4]);
     if (argc == 6)
-        data.eat_max = ft_atoi(argv[5il]);
+        data.eat_max = ft_atoi(argv[5]);
+    if (data.nbr_philo < 0 || data.time_to_die < 0 || data.time_to_eat < 0
+    || data.time_to_sleep < 0 || data.eat_max < 0)
+        return (0);
     // philo = malloc_each_philo(philo);
     start_philo(data);
     return (0);
