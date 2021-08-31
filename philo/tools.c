@@ -6,9 +6,16 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:42:18 by loamar            #+#    #+#             */
-/*   Updated: 2021/08/21 12:44:11 by loamar           ###   ########.fr       */
+/*   Updated: 2021/08/30 23:45:19 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "philo.h"
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
 
 int     ft_isdigit(int c)
 {
@@ -42,4 +49,27 @@ int     ft_atoi(const char *str)
 		i++;
 	}
 	return (res * sign);
+}
+
+void	ft_putnbr(int n)
+{
+	long	nb;
+
+	nb = n;
+	if (n < 0)
+	{
+		ft_putchar('-');
+		nb *= -1;
+	}
+	if (nb >= 10)
+		ft_putnbr(nb / 10);
+	ft_putchar(nb % 10 + '0');
+}
+
+void	ft_putstr(char *s)
+{
+	while (*s)
+	{
+		ft_putchar(*s++);
+	}
 }

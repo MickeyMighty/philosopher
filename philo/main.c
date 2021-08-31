@@ -6,13 +6,29 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:26:26 by loamar            #+#    #+#             */
-/*   Updated: 2021/08/25 19:42:02 by loamar           ###   ########.fr       */
+/*   Updated: 2021/08/31 01:22:53 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
+void print_status(int status, int id)
+{
+    //print timestamp_in_ms
+    ft_putnbr(id);
+    if (status == TAKE_FORK)
+        ft_putstr(" has taken a fork");
+    if (status == EAT)
+        ft_putstr("  is eating");
+    if (status == SLEEP)
+        ft_putstr(" is sleeping");
+    if (status == THINK)
+        ft_putstr("  is thinking");
+    if (status == DEAD)
+        ft_putstr(" died");
+}
 
 static int  check_arg(int argc, char **argv)
 {
@@ -36,39 +52,7 @@ static int  check_arg(int argc, char **argv)
     return (0);
 }
 
-// static int  **malloc_each_philo(t_data data)
-// {
-//     int     philo[data.nbr_philo][3];
-//     // int     pos;
-//     // pos = 0;
-//     // if (!(philo = (int**)malloc(sizeof(int*) * data.nbr_philo)))
-//     //     return (0);
-//     // while (pos < 3)
-//     // {
-//     //     if (!(philo[pos] = (int*)malloc(sizeof(int) * 3)))
-//     //         return (0);
-//     //     // memset(philo[pos], '0', 4*sizeof(int));
-//     //     pos++;
-//     // }
-//     return (philo);
-// }
-// static int  **init_philo(t_data data)
-// {
-//     int     philo[data.nbr_philo][3];
-//     int     pos;
-//
-//     pos = 0;
-//     while (pos < data.nbr_philo)
-//     {
-//         philo[pos][0] = 0;
-//         philo[pos][1] = 0;
-//         philo[pos][2] = 0;
-//         pos++;
-//     }
-//     return (philo);
-// }
-
-static void  start_philo(t_data data)
+static void  start_philo(t_argument arg)
 {
     int     philo[data.nbr_philo][3];
     int     pos;
@@ -81,28 +65,29 @@ static void  start_philo(t_data data)
         philo[pos][2] = 0;
         pos++;
     }
+
     // philo = init_philo(data, philo);
 }
 
 int            main(int argc, char **argv)
 {
-    t_data  data;
+    t_argument  arg;
 
-    data.eat_max = 0;
+    arg.eat_max = 0;
     if (argc != 5 || argc != 6)
         return (0);
     if (check_arg(argc, argv) == 1)
         return (0);
-    data.nbr_philo = ft_atoi(argv[1]);
-    data.time_to_die = ft_atoi(argv[2]);
-    data.time_to_eat = ft_atoi(argv[3]);
-    data.time_to_sleep = ft_atoi(argv[4]);
+    arg.nbr_philo = ft_atoi(argv[1]);
+    arg.time_to_die = ft_atoi(argv[2]);
+    arg.time_to_eat = ft_atoi(argv[3]);
+    arg.time_to_sleep = ft_atoi(argv[4]);
     if (argc == 6)
-        data.eat_max = ft_atoi(argv[5]);
-    if (data.nbr_philo < 0 || data.time_to_die < 0 || data.time_to_eat < 0
-    || data.time_to_sleep < 0 || data.eat_max < 0)
+        arg.eat_max = ft_atoi(argv[5]);
+    if (arg.nbr_philo < 0 || arg.time_to_die < 0 || arg.time_to_eat < 0
+    || arg.time_to_sleep < 0 || arg.eat_max < 0)
         return (0);
     // philo = malloc_each_philo(philo);
-    start_philo(data);
+    start_philo(arg);
     return (0);
 }
