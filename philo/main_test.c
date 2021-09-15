@@ -6,7 +6,7 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/18 16:27:46 by loamar            #+#    #+#             */
-/*   Updated: 2021/09/15 01:36:37 by loamar           ###   ########.fr       */
+/*   Updated: 2021/09/15 02:18:01 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int     main(int argc, char **argv)
     pthread_t t2;
 
     pthread_create(&t1, NULL, func1, "hello 1");
-    pthread_create(&t1, NULL, func2, "hello 2");\
+    pthread_create(&t1, NULL, func2, "hello 2");
 
     char s1;
     char s2;
