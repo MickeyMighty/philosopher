@@ -6,7 +6,7 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/25 19:43:26 by loamar            #+#    #+#             */
-/*   Updated: 2021/08/31 04:39:03 by loamar           ###   ########.fr       */
+/*   Updated: 2021/09/15 02:07:24 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,12 @@
 
 void    create_threads(t_data data)
 {
-    pthread_t   t_eat;
-    pthread_t   t_sleep;
-    pthread_t   t_think;
-    pthread_t   t_die;
+    int     count;
 
-    pthread_create(&t_eat, NULL, action_eat, data);
-    pthread_create(&t_sleep, NULL, action_sleep, data);
-    pthread_create(&t_think, NULL, action_think, data);
-    pthread_create(&t_die, NULL, action_die, data);
-    // int     count;
-    //
-    // count = 1;
-    // while (count <= data.nbr_philo)
-    // {
-    //     pthread_create(&)
-    // }
+    count = 0;
+    while (count <= data.nbr_philo)
+    {
+        data.philo[count].nbr = count + 1;
+        pthread_create(&data.philo[count].thread_id, NULL, handler_action,)
+    }
 }

@@ -6,7 +6,7 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:42:24 by loamar            #+#    #+#             */
-/*   Updated: 2021/08/30 23:49:24 by loamar           ###   ########.fr       */
+/*   Updated: 2021/09/15 01:13:18 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,20 @@ typedef struct				s_argument
     int     eat_max;
 }							t_argument;
 
-typedef struct				s_data
+
+typedef struct				s_philo
 {
-    int     nbr_philo;
-    int     time_to_die;
-    int     time_to_eat;
-    int     time_to_sleep;
-    int     eat_max;
-}							t_data;
+    int                 nbr;
+    pthread_t           thread_id;
+    pthread_mutex_t     right_hand;
+    pthread_mutex_t     left_hand;
+}							t_philo;
+
+typedef struct              s_data
+{
+    t_argument      arg;
+    t_philo         *philo;
+}
 
 // MAIN
 void print_status(int status, int id);
@@ -50,6 +56,6 @@ void	ft_putchar(char c);
 int     ft_isdigit(int c);
 int     ft_atoi(const char *str);
 void	ft_putnbr(int n);
-void	ft_putstr(char *s);
+void	ft_putstr_fd(char *s, int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:42:18 by loamar            #+#    #+#             */
-/*   Updated: 2021/08/30 23:45:19 by loamar           ###   ########.fr       */
+/*   Updated: 2021/09/15 00:55:58 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,9 @@ void	ft_putnbr(int n)
 	ft_putchar(nb % 10 + '0');
 }
 
-void	ft_putstr(char *s)
+void	ft_putstr_fd(char *s, int fd)
 {
-	while (*s)
-	{
-		ft_putchar(*s++);
-	}
+	if (s && fd >= 0)
+		while (*s)
+			ft_putchar_fd(*s++, fd);
 }
