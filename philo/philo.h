@@ -6,7 +6,7 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:42:24 by loamar            #+#    #+#             */
-/*   Updated: 2021/09/15 02:28:52 by loamar           ###   ########.fr       */
+/*   Updated: 2021/09/22 18:27:23 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,36 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <sys/time.h>
 #include <pthread.h>
 
-# define EAT 1
-# define TAKE_FORK 2
-# define SLEEP 3
-# define THINK 4
-# define DEAD 5
+# define SUCCESS 0
+# define ERROR -1
+# define EAT 2
+# define TAKE_FORK 3
+# define SLEEP 4
+# define THINK 5
+# define DEAD 6
 
 typedef struct				s_argument
 {
-    int     nbr_philo;
-    int     time_to_die;
-    int     time_to_eat;
-    int     time_to_sleep;
-    int     eat_max;
+    int    				nbr_philo;
+    int    				time_to_die;
+    int    				time_to_eat;
+    int    				time_to_sleep;
+    int    				eat_max;
+	int    				start_time;
+	int    				stop_time;
+	pthread_mutex_t     mtx_write;
+	pthread_mutex_t     mtx_eat;
+	pthread_mutex_t     mtx_dead;
+	pthread_mutex_t     mtx_end;
 }							t_argument;
 
 
 typedef struct				s_philo
 {
-    int                 nbr;
+    int                	id;
     pthread_t           thread_id;
     pthread_mutex_t     right_hand;
     pthread_mutex_t     left_hand;
@@ -46,13 +55,24 @@ typedef struct              s_data
 {
     t_argument      arg;
     t_philo         *philo;
-}
+}							t_data;
 
 // MAIN
-void print_status(int status, int id);
+
+void		print_status(int status, int id);
+
+// THREADS
+
+int    create_threads(t_data *data);
+
+// INIT
+
+int				init_philo(t_data *data);
+int 			error_msg(char *msg);
 
 // TOOLS
-void	ft_putchar(char c);
+
+void	ft_putchar_fd(char c, int fd);
 int     ft_isdigit(int c);
 int     ft_atoi(const char *str);
 void	ft_putnbr(int n);

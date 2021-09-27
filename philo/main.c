@@ -6,7 +6,7 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:26:26 by loamar            #+#    #+#             */
-/*   Updated: 2021/09/15 01:14:25 by loamar           ###   ########.fr       */
+/*   Updated: 2021/09/22 19:00:57 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-void print_status(int status, int id)
+void 		print_status(int status, int id)
 {
     //print timestamp_in_ms
     ft_putnbr(id);
     if (status == TAKE_FORK)
-        ft_putstr(" has taken a fork");
+        ft_putstr_fd(" has taken a fork", 1);
     if (status == EAT)
-        ft_putstr("  is eating");
+        ft_putstr_fd("  is eating", 1);
     if (status == SLEEP)
-        ft_putstr(" is sleeping");
+        ft_putstr_fd(" is sleeping", 1);
     if (status == THINK)
-        ft_putstr("  is thinking");
+        ft_putstr_fd("  is thinking", 1);
     if (status == DEAD)
-        ft_putstr(" died");
+        ft_putstr_fd(" died", 1);
 }
 
 static int  check_arg(int argc, char **argv)
@@ -44,35 +44,35 @@ static int  check_arg(int argc, char **argv)
         while (argv[word][letter] != 0)
         {
             if (ft_isdigit(argv[word][letter]) == 0)
-                return (1);
+                return (ERROR);
             letter++;
         }
         word++;
     }
-    return (0);
+    return (SUCCESS);
 }
 
-static int   error_msg(char *msg);
+static int  start(t_data data)
 {
-    ft_putstr_fd(msg, 2);
-    return (0);
-}
-
-static void  start_philo(t_data data)
-{
-    
-    // philo = init_philo(data, philo);
+	create_threads(&data);
+	init_philo(&data);
+	return (0);
+	// handler_threads();
 }
 
 int            main(int argc, char **argv)
 {
     t_data  data;
 
-    data.eat_max = 0;
+	struct	timeval	current_time;
+	if (gettimeofday(&current_time, NULL) == -1)
+		return (error_msg("Error : gettimeofday return -1"));
+	printf("seconds : %ld\nmicro seconds : %d", current_time.tv_sec, current_time.tv_usec);
+    data.arg.eat_max = 0;
     if (argc != 5 || argc != 6)
-        return (error_msg("Error : Invalid Arguments\n"));
-    if (check_arg(argc, argv) == 1)
-        return (error_msg("Error : Invalid Arguments\n"));
+        return (error_msg("Error : Invalid Arguments"));
+    if (check_arg(argc, argv) == ERROR)
+        return (error_msg("Error : Invalid Arguments"));
     data.arg.nbr_philo = ft_atoi(argv[1]);
     data.arg.time_to_die = ft_atoi(argv[2]);
     data.arg.time_to_eat = ft_atoi(argv[3]);
@@ -81,9 +81,9 @@ int            main(int argc, char **argv)
         data.arg.eat_max = ft_atoi(argv[5]);
     if (data.arg.nbr_philo < 0 || data.arg.time_to_die < 0 || data.arg.time_to_eat < 0
     || data.arg.time_to_sleep < 0 || data.arg.eat_max < 0)
-        return (error_msg("Error : Invalid Arguments\n"));
+        return (error_msg("Error : Invalid Arguments"));
     if (!(data.philo = malloc(sizeof(t_philo) * data.arg.nbr_philo)))
-        return (error_msg("Error : Malloc (main.c - l.96)\n"));
-    start_philo(data);
+        return (error_msg("Error : Malloc (main.c - l.96)"));
+    start(data);
     return (0);
 }

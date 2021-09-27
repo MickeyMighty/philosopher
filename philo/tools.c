@@ -6,15 +6,15 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:42:18 by loamar            #+#    #+#             */
-/*   Updated: 2021/09/15 00:55:58 by loamar           ###   ########.fr       */
+/*   Updated: 2021/09/22 18:28:12 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_putchar(char c)
+void	ft_putchar_fd(char c, int fd)
 {
-	write(1, &c, 1);
+	write(fd, &c, 1);
 }
 
 int     ft_isdigit(int c)
@@ -58,12 +58,12 @@ void	ft_putnbr(int n)
 	nb = n;
 	if (n < 0)
 	{
-		ft_putchar('-');
+		ft_putchar_fd('-', 1);
 		nb *= -1;
 	}
 	if (nb >= 10)
 		ft_putnbr(nb / 10);
-	ft_putchar(nb % 10 + '0');
+	ft_putchar_fd(nb % 10 + '0', 1);
 }
 
 void	ft_putstr_fd(char *s, int fd)
