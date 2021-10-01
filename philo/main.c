@@ -6,7 +6,7 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:26:26 by loamar            #+#    #+#             */
-/*   Updated: 2021/09/22 19:00:57 by loamar           ###   ########.fr       */
+/*   Updated: 2021/09/29 16:11:00 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,6 @@ int            main(int argc, char **argv)
 {
     t_data  data;
 
-	struct	timeval	current_time;
-	if (gettimeofday(&current_time, NULL) == -1)
-		return (error_msg("Error : gettimeofday return -1"));
-	printf("seconds : %ld\nmicro seconds : %d", current_time.tv_sec, current_time.tv_usec);
     data.arg.eat_max = 0;
     if (argc != 5 || argc != 6)
         return (error_msg("Error : Invalid Arguments"));
