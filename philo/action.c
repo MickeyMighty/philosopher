@@ -6,7 +6,7 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 01:49:44 by loamar            #+#    #+#             */
-/*   Updated: 2021/10/01 14:35:38 by loamar           ###   ########.fr       */
+/*   Updated: 2021/10/02 01:38:53 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,9 @@ long int	ft_sleep(long int time)
 	start = get_time();
 	while ((get_time() - start_time) < time)
 		usleep(time / 10);
+}
+
+void 		action(t_philo *philo)
+{
+	;
 }
