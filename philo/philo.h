@@ -6,7 +6,7 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:42:24 by loamar            #+#    #+#             */
-/*   Updated: 2021/09/22 18:27:23 by loamar           ###   ########.fr       */
+/*   Updated: 2021/10/04 15:28:22 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ typedef struct				s_argument
     int    				time_to_eat;
     int    				time_to_sleep;
     int    				eat_max;
-	int    				start_time;
-	int    				stop_time;
+	long int    		start_time;
+	long int    		stop_time;
 	pthread_mutex_t     mtx_write;
 	pthread_mutex_t     mtx_eat;
 	pthread_mutex_t     mtx_dead;
@@ -46,8 +46,10 @@ typedef struct				s_argument
 typedef struct				s_philo
 {
     int                	id;
-    pthread_t           thread_id;
-    pthread_mutex_t     right_hand;
+    long int            eat_time;
+    pthread_t           thread_philo;
+    pthread_t           thread_death;
+    pthread_mutex_t     *right_hand;
     pthread_mutex_t     left_hand;
 }							t_philo;
 

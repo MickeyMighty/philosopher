@@ -6,7 +6,7 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:26:26 by loamar            #+#    #+#             */
-/*   Updated: 2021/09/29 16:11:00 by loamar           ###   ########.fr       */
+/*   Updated: 2021/10/04 14:15:10 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-void 		print_status(int status, int id)
+void 		print_status(int status, int id, int time_ms)
 {
-    //print timestamp_in_ms
+    ft_putnbr(time_ms);
+    ft_putchar_fd(' ', 1);
     ft_putnbr(id);
     if (status == TAKE_FORK)
         ft_putstr_fd(" has taken a fork", 1);
@@ -54,8 +55,9 @@ static int  check_arg(int argc, char **argv)
 
 static int  start(t_data data)
 {
-	create_threads(&data);
-	init_philo(&data);
+	if (init_philo(&data) == ERROR);
+        return (ERROR);
+    // create_threads(&data);
 	return (0);
 	// handler_threads();
 }
