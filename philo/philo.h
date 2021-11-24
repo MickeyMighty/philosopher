@@ -29,13 +29,14 @@
 
 typedef struct				s_argument
 {
-    int    				nbr_philo;
-    int    				time_to_die;
-    int    				time_to_eat;
-    int    				time_to_sleep;
-    int    				eat_max;
-	long int    		start_time;
-	long int    		stop_time;
+  int     				    nbr_philo;
+  int      				    time_to_die;
+  int      				    time_to_eat;
+  int    	  			    time_to_sleep;
+  int    		   		    eat_max;
+	long int    		    start_time;
+	long int    		    stop_time;
+	int    		          end;
 	pthread_mutex_t     mtx_write;
 	pthread_mutex_t     mtx_eat;
 	pthread_mutex_t     mtx_dead;
@@ -47,10 +48,12 @@ typedef struct				s_philo
 {
     int                	id;
     long int            eat_time;
+    unsigned int        nbr_eat;
     pthread_t           thread_philo;
     pthread_t           thread_death;
     pthread_mutex_t     *right_hand;
     pthread_mutex_t     left_hand;
+    t_argument          *args;     
 }							t_philo;
 
 typedef struct              s_data

@@ -14,7 +14,14 @@
 
 int     check_death(t_philo *philo)
 {
-    pthread_mutex_lock(&);
+  int   check;
+
+  check = 0;
+  pthread_mutex_lock(&philo->arg->mtx_dead);
+  if (philo->arg->stop == 1)
+    check = 1;
+  pthread_mutex_unlock(&philo->arg->mtx_dead);
+  return (check);
 }
 
 void 	handler_threads(void *lair_philo)
@@ -24,8 +31,9 @@ void 	handler_threads(void *lair_philo)
     philo = (t_philo *)lair_philo;
 	while (check_death(philo))
     {
-        // pthread_create(&philo->thread_death, NULL, death, lair_philo);
         handler_action(philo);
+
+        // pthread_create(&philo->thread_death, NULL, death, lair_philo);
         // pthread_detach(&philo->thread_death)
 
     }

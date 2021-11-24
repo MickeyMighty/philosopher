@@ -22,11 +22,11 @@ void 		print_status(int status, int id, int time_ms)
     if (status == TAKE_FORK)
         ft_putstr_fd(" has taken a fork", 1);
     if (status == EAT)
-        ft_putstr_fd("  is eating", 1);
+        ft_putstr_fd(" is eating", 1);
     if (status == SLEEP)
         ft_putstr_fd(" is sleeping", 1);
     if (status == THINK)
-        ft_putstr_fd("  is thinking", 1);
+        ft_putstr_fd(" is thinking", 1);
     if (status == DEAD)
         ft_putstr_fd(" died", 1);
 }
@@ -80,7 +80,8 @@ int            main(int argc, char **argv)
     if (data.arg.nbr_philo < 0 || data.arg.time_to_die < 0 || data.arg.time_to_eat < 0
     || data.arg.time_to_sleep < 0 || data.arg.eat_max < 0)
         return (error_msg("Error : Invalid Arguments"));
-    if (!(data.philo = malloc(sizeof(t_philo) * data.arg.nbr_philo)))
+    data.philo = malloc(sizeof(t_philo) * data.arg.nbr_philo);
+    if (!data.philo)
         return (error_msg("Error : Malloc (main.c - l.96)"));
     start(data);
     return (0);

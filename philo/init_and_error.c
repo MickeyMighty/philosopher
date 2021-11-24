@@ -38,9 +38,8 @@ static void 	synchronize_philo(t_data *data)
 		if (data->arg.nbr_philo > 1)
 			data->philo[count_id - 1].right_hand = &data->philo[count_id].left_hand;
 		data->philo[count_id - 1].id = count_id;
+		data->philo[count_id - 1].nbr_eat = 0;
 		data->philo[count_id - 1].eat_time = data.arg.start_time;
-		data->philo.start_time
-
 		count_id++;
 	}
 }
