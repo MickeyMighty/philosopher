@@ -6,19 +6,19 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 12:53:21 by loamar            #+#    #+#             */
-/*   Updated: 2021/10/04 14:14:04 by loamar           ###   ########.fr       */
+/*   Updated: 2022/01/11 00:11:44 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	 	get_time(void)
+int	 			get_time(void)
 {
 	long int	time_ms;
 	struct	timeval	time_value;
 
 	time_ms = 0;
-	if (gettimeofday(&current_time, NULL) != 0)
+	if (gettimeofday(&time_value, NULL) != 0)
 		return (error_msg("Error : gettimeofday return -1"));
 	time_ms = (time_value.tv_sec * 1000) + (time_value.tv_usec / 1000);
 	return (time_ms);
@@ -32,14 +32,14 @@ static void 	synchronize_philo(t_data *data)
 	while (count_id <= data->arg.nbr_philo)
 	{
 		if (count_id < data->arg.nbr_philo)
-			data->philo[count_id - 1].right_hand = data->philo[count_id].left_hand;
+			data->philo[count_id - 1].right_hand = &data->philo[count_id].left_hand;
 		if (count_id == data->arg.nbr_philo)
 			data->philo[count_id - 1].right_hand = &data->philo[0].left_hand;
 		if (data->arg.nbr_philo > 1)
 			data->philo[count_id - 1].right_hand = &data->philo[count_id].left_hand;
 		data->philo[count_id - 1].id = count_id;
 		data->philo[count_id - 1].nbr_eat = 0;
-		data->philo[count_id - 1].eat_time = data.arg.start_time;
+		data->philo[count_id - 1].eat_time = data->arg.start_time;
 		count_id++;
 	}
 }
@@ -61,7 +61,7 @@ int				init_philo(t_data *data)
 	while (count < data->arg.nbr_philo)
 	{
 		if (pthread_create(&data->philo[count].thread_philo, NULL, handler_threads, &data->philo[count]) != 0)
-			return (error_msg("Error : Pthread_create\n"));
+			return (error_msg("Error : Pthread not return 0"));
 		count++;
 	}
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:42:24 by loamar            #+#    #+#             */
-/*   Updated: 2021/10/04 15:28:22 by loamar           ###   ########.fr       */
+/*   Updated: 2022/01/11 11:03:47 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,28 @@ typedef struct				s_argument
   int    	  			    time_to_sleep;
   int    		   		    eat_max;
 	long int    		    start_time;
-	long int    		    stop_time;
-	int    		          end;
-	pthread_mutex_t     mtx_write;
-	pthread_mutex_t     mtx_eat;
-	pthread_mutex_t     mtx_dead;
-	pthread_mutex_t     mtx_end;
+	int    		    		stop_time;
+	int						nb_p_finish;
+	int    		        	end;
+	pthread_mutex_t     	mtx_write;
+	pthread_mutex_t     	mtx_eat;
+	pthread_mutex_t     	mtx_dead;
+	pthread_mutex_t     	mtx_end;
+	pthread_mutex_t     	mtx_finish;
 }							t_argument;
-
 
 typedef struct				s_philo
 {
     int                	id;
     long int            eat_time;
     unsigned int        nbr_eat;
+	long int			eat_in_ms;
     pthread_t           thread_philo;
-    pthread_t           thread_death;
+    pthread_t           thread_death;;
     pthread_mutex_t     *right_hand;
     pthread_mutex_t     left_hand;
-    t_argument          *args;     
+    t_argument          *args;
+	int					finish;
 }							t_philo;
 
 typedef struct              s_data
@@ -64,14 +67,17 @@ typedef struct              s_data
 
 // MAIN
 
-void		print_status(int status, int id);
+void		print_status(int status, int id, t_philo *philo);
 
 // THREADS
 
-int    create_threads(t_data *data);
+void 	*if_dead(void 	*lair_philo);
+int     check_death(t_philo *philo, int key);
+void 	*handler_threads(void *lair_philo);
 
 // INIT
 
+int	 			get_time(void);
 int				init_philo(t_data *data);
 int 			error_msg(char *msg);
 
