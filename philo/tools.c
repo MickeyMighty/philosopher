@@ -17,7 +17,7 @@ void	ft_putchar_fd(char c, int fd)
 	write(fd, &c, 1);
 }
 
-int     ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
@@ -25,7 +25,7 @@ int     ft_isdigit(int c)
 		return (0);
 }
 
-int     ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	long	i;
 	long	sign;
@@ -33,8 +33,8 @@ int     ft_atoi(const char *str)
 
 	sign = 1;
 	i = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' ||
-			str[i] == '\n' || str[i] == '\r' || str[i] == '\f')
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' \
+	|| str[i] == '\n' || str[i] == '\r' || str[i] == '\f')
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
@@ -51,9 +51,9 @@ int     ft_atoi(const char *str)
 	return (res * sign);
 }
 
-void	ft_putnbr(int n)
+void	ft_putnbr(long int n)
 {
-	long	nb;
+	long int	nb;
 
 	nb = n;
 	if (n < 0)
