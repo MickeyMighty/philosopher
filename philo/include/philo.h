@@ -6,7 +6,7 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:42:24 by loamar            #+#    #+#             */
-/*   Updated: 2022/01/11 21:34:27 by loamar           ###   ########.fr       */
+/*   Updated: 2022/01/12 14:10:31 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,12 @@ typedef struct s_argument
 	int						time_to_eat;
 	int						time_to_sleep;
 	int						eat_max;
-	int						stop_time;
+	int						stop;
 	int						nb_p_finish;
 	long int				start_time;
 	pthread_mutex_t			mtx_write;
 	pthread_mutex_t			mtx_eat;
 	pthread_mutex_t			mtx_dead;
-	pthread_mutex_t			mtx_end;
 	pthread_mutex_t			mtx_finish;
 }							t_argument;
 

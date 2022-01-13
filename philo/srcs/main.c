@@ -6,11 +6,11 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:26:26 by loamar            #+#    #+#             */
-/*   Updated: 2022/01/11 21:26:51 by loamar           ###   ########.fr       */
+/*   Updated: 2022/01/13 04:07:13 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 void	print_status(int status, int id, t_philo *philo)
 {
@@ -19,10 +19,11 @@ void	print_status(int status, int id, t_philo *philo)
 	time = get_time() - philo->args->start_time;
 	if (!(time >= 0 && time <= 2147483647 && !check_death(philo, 0)))
 		return ;
+	pthread_mutex_lock(&philo->args->mtx_write);
 	ft_putnbr(time);
 	ft_putchar_fd(' ', 1);
+	ft_putstr_fd("Philo ", 1);
 	ft_putnbr(id);
-	pthread_mutex_lock(&philo->args->mtx_write);
 	if (status == EAT)
 	{
 		ft_putstr_fd(" is eating", 1);
@@ -38,6 +39,7 @@ void	print_status(int status, int id, t_philo *philo)
 		ft_putstr_fd(" is thinking", 1);
 	if (status == DEAD)
 		ft_putstr_fd(" died", 1);
+	ft_putchar_fd('\n', 1);
 	pthread_mutex_unlock(&philo->args->mtx_write);
 }
 
@@ -80,18 +82,18 @@ int	main(int argc, char **argv)
 	data.arg.eat_max = -1;
 	if (argc == 6)
 		data.arg.eat_max = ft_atoi(argv[5]);
-	if (data.arg.nbr_philo < 0 || data.arg.time_to_die < 0 \
+	if (data.arg.nbr_philo <= 0 || data.arg.time_to_die < 0 \
 		|| data.arg.time_to_eat < 0 || data.arg.time_to_sleep < 0 \
 		|| data.arg.eat_max < -1)
 		return (error_msg("Error : Invalid Arguments"));
 	data.philo = malloc(sizeof(t_philo) * data.arg.nbr_philo);
 	if (!data.philo)
 		return (error_msg("Error : Malloc (main.c - l.96)"));
-	if (init_philo(&data) == ERROR)
-		return (error_msg("Error : init"));
-	printf("create_thread\n");
-	create_thread(&data);
-	printf("finish_thread\n");
+	if ((init_philo(&data) == ERROR) || (create_thread(&data) == ERROR))
+	{
+		free(data.philo);
+		return (0);
+	}
 	finish_thread(&data);
 	return (0);
 }

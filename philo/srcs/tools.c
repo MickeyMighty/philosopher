@@ -6,11 +6,11 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 12:42:18 by loamar            #+#    #+#             */
-/*   Updated: 2021/09/22 18:28:12 by loamar           ###   ########.fr       */
+/*   Updated: 2022/01/12 13:16:18 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 void	ft_putchar_fd(char c, int fd)
 {

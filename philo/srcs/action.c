@@ -6,11 +6,11 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 01:49:44 by loamar            #+#    #+#             */
-/*   Updated: 2022/01/11 11:03:50 by loamar           ###   ########.fr       */
+/*   Updated: 2022/01/13 03:59:04 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 void	ft_sleep(long int time)
 {

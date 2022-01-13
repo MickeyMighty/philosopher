@@ -6,11 +6,11 @@
 /*   By: loamar <loamar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 12:53:21 by loamar            #+#    #+#             */
-/*   Updated: 2022/01/11 00:11:44 by loamar           ###   ########.fr       */
+/*   Updated: 2022/01/13 03:43:19 by loamar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 int	get_time(void)
 {
@@ -24,12 +24,12 @@ int	get_time(void)
 	return (time_ms);
 }
 
-static void	synchronize_philo(t_data *data)
+static int	synchronize_philo(t_data *data)
 {
 	int	count_id;
 
 	count_id = 0;
-	while (count_id <= data->arg.nbr_philo)
+	while (count_id < data->arg.nbr_philo)
 	{
 		data->philo[count_id].id = count_id + 1;
 		data->philo[count_id].eat_in_ms = data->arg.start_time;
@@ -38,27 +38,25 @@ static void	synchronize_philo(t_data *data)
 		data->philo[count_id].right_hand = NULL;
 		pthread_mutex_init(&data->philo[count_id].left_hand, NULL);
 		if (data->arg.nbr_philo == 1)
-			return;
-		if (count_id == data->arg.nbr_philo - 1)
+			return (1);
+		if (count_id == (data->arg.nbr_philo - 1))
 			data->philo[count_id].right_hand = &data->philo[0].left_hand;
 		else
 			data->philo[count_id].right_hand = \
 			&data->philo[count_id + 1].left_hand;
 		count_id++;
 	}
+	return (1);
 }
 
 int	init_philo(t_data *data)
 {
-	data->arg.stop_time = 0;
 	data->arg.start_time = get_time();
+	data->arg.stop = 0;
 	data->arg.nb_p_finish = 0;
-	if (data->arg.start_time == ERROR)
-		return (ERROR);
 	pthread_mutex_init(&data->arg.mtx_write, NULL);
 	pthread_mutex_init(&data->arg.mtx_eat, NULL);
 	pthread_mutex_init(&data->arg.mtx_dead, NULL);
-	pthread_mutex_init(&data->arg.mtx_end, NULL);
 	pthread_mutex_init(&data->arg.mtx_finish, NULL);
 	synchronize_philo(data);
 	return (SUCCESS);
